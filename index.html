@@ -948,52 +948,86 @@
 <div class="ventures-grid">
   <!-- NEXUS NODE -->
   <a class="venture-card reveal" href="https://getnexusnode.github.io" target="_blank">
-    <!-- App preview mockup -->
-    <div style="position:absolute;top:0;left:0;right:0;height:140px;overflow:hidden;pointer-events:none;">
-      <div style="background:linear-gradient(135deg,#0e0c1a 0%,#1a1030 100%);height:100%;display:flex;align-items:center;justify-content:center;gap:12px;opacity:0.7;">
-        <div style="width:90px;background:rgba(167,139,250,0.08);border:1px solid rgba(167,139,250,0.2);border-radius:4px;padding:8px 6px;font-size:9px;letter-spacing:1px;color:#a78bfa;">
-          <div style="margin-bottom:6px;opacity:0.5;font-size:8px;">CONTACTS</div>
-          <div style="height:2px;background:rgba(167,139,250,0.3);border-radius:1px;margin-bottom:4px;"></div>
-          <div style="height:2px;background:rgba(167,139,250,0.2);border-radius:1px;margin-bottom:4px;width:70%;"></div>
-          <div style="height:2px;background:rgba(167,139,250,0.2);border-radius:1px;width:85%;"></div>
+    <!-- NEXUS NODE App Preview — World Map view -->
+    <div style="position:absolute;top:0;left:0;right:0;height:160px;overflow:hidden;pointer-events:none;font-family:'Figtree',system-ui,sans-serif;">
+      <div style="background:#07050f;height:100%;display:flex;">
+        <!-- Sidebar -->
+        <div style="width:100px;background:#0d0b1a;border-right:1px solid rgba(167,139,250,0.1);padding:8px 0;flex-shrink:0;display:flex;flex-direction:column;">
+          <div style="padding:0 8px 7px;border-bottom:1px solid rgba(167,139,250,0.07);margin-bottom:5px;">
+            <div style="font-size:7px;font-weight:700;color:#a78bfa;letter-spacing:2px;">NEXUS NODE</div>
+            <div style="font-size:5.5px;color:rgba(167,139,250,0.35);letter-spacing:1px;">V 1.1.0</div>
+          </div>
+          <div style="padding:2.5px 8px;font-size:6.5px;color:rgba(167,139,250,0.3);">Status</div>
+          <div style="padding:2.5px 8px;font-size:6.5px;color:rgba(167,139,250,0.3);">Contacts</div>
+          <div style="padding:2.5px 8px;font-size:6.5px;color:rgba(167,139,250,0.3);">Network</div>
+          <div style="padding:2.5px 8px;font-size:6.5px;color:rgba(167,139,250,0.3);">Tasks</div>
+          <div style="padding:2.5px 8px;font-size:6.5px;color:rgba(167,139,250,0.3);">Calendar</div>
+          <div style="padding:2.5px 8px;font-size:6.5px;color:#c4b5fd;background:rgba(167,139,250,0.12);border-left:2px solid #a78bfa;">World Map</div>
+          <div style="padding:2.5px 8px;font-size:6.5px;color:rgba(167,139,250,0.3);">Settings</div>
+          <div style="margin-top:auto;padding:5px 8px;">
+            <div style="background:#7c3aed;color:white;font-size:5.5px;font-weight:700;letter-spacing:1px;padding:2px 5px;border-radius:2px;text-align:center;">PRO ✓</div>
+          </div>
         </div>
-        <div style="width:110px;height:80px;background:rgba(10,8,20,0.8);border:1px solid rgba(167,139,250,0.15);border-radius:4px;position:relative;overflow:hidden;">
-          <svg width="110" height="80" viewBox="0 0 110 80" fill="none" style="position:absolute;inset:0;">
-            <circle cx="55" cy="40" r="6" fill="#a78bfa"/>
-            <circle cx="20" cy="18" r="3.5" fill="none" stroke="#a78bfa" stroke-width="0.8" opacity="0.6"/>
-            <circle cx="90" cy="18" r="3.5" fill="none" stroke="#a78bfa" stroke-width="0.8" opacity="0.6"/>
-            <circle cx="20" cy="62" r="3.5" fill="none" stroke="#a78bfa" stroke-width="0.8" opacity="0.6"/>
-            <circle cx="90" cy="62" r="3.5" fill="none" stroke="#a78bfa" stroke-width="0.8" opacity="0.6"/>
-            <circle cx="55" cy="12" r="2.5" fill="none" stroke="#a78bfa" stroke-width="0.8" opacity="0.4"/>
-            <line x1="55" y1="34" x2="22" y2="20.5" stroke="#a78bfa" stroke-width="0.6" opacity="0.4"/>
-            <line x1="55" y1="34" x2="88" y2="20.5" stroke="#a78bfa" stroke-width="0.6" opacity="0.4"/>
-            <line x1="55" y1="46" x2="22" y2="59.5" stroke="#a78bfa" stroke-width="0.6" opacity="0.4"/>
-            <line x1="55" y1="46" x2="88" y2="59.5" stroke="#a78bfa" stroke-width="0.6" opacity="0.4"/>
-            <line x1="55" y1="34" x2="55" y2="14.5" stroke="#a78bfa" stroke-width="0.6" opacity="0.3"/>
+        <!-- Map area -->
+        <div style="flex:1;position:relative;overflow:hidden;">
+          <div style="padding:5px 8px;border-bottom:1px solid rgba(167,139,250,0.07);display:flex;align-items:center;justify-content:space-between;">
+            <div style="font-size:8px;font-weight:600;color:white;">World Map</div>
+            <div style="display:flex;gap:3px;">
+              <div style="font-size:5.5px;color:rgba(167,139,250,0.45);padding:1.5px 4px;border:1px solid rgba(167,139,250,0.12);border-radius:2px;">Go Home</div>
+              <div style="font-size:5.5px;color:rgba(167,139,250,0.45);padding:1.5px 4px;border:1px solid rgba(167,139,250,0.12);border-radius:2px;">Fill Locations</div>
+            </div>
+          </div>
+          <svg style="position:absolute;top:22px;left:0;right:0;width:100%;height:calc(100% - 22px);" viewBox="0 0 260 110" fill="none" preserveAspectRatio="xMidYMid slice">
+            <!-- Europe rough shape -->
+            <path d="M40,15 Q65,10 90,14 Q115,10 132,16 Q148,13 162,18 Q172,16 178,22 Q184,28 182,36 Q177,44 169,47 Q163,54 158,59 Q153,67 148,70 Q140,75 130,73 Q118,77 108,75 Q96,79 84,76 Q72,74 62,70 Q53,63 48,53 Q43,43 44,33 Q44,23 40,15Z" stroke="rgba(167,139,250,0.06)" stroke-width="0.5" fill="rgba(167,139,250,0.025)"/>
+            <!-- UK -->
+            <path d="M68,18 Q74,14 78,20 Q76,26 70,24Z" stroke="rgba(167,139,250,0.06)" stroke-width="0.4" fill="rgba(167,139,250,0.02)"/>
+            <!-- Vienna — You -->
+            <circle cx="145" cy="46" r="5" fill="#a78bfa"/>
+            <text x="151" y="49" font-size="5" fill="rgba(255,255,255,0.75)">You</text>
+            <!-- Radius circles -->
+            <circle cx="145" cy="46" r="16" stroke="rgba(167,139,250,0.3)" stroke-width="0.7" fill="none" stroke-dasharray="2,2"/>
+            <circle cx="145" cy="46" r="28" stroke="rgba(167,139,250,0.13)" stroke-width="0.7" fill="none" stroke-dasharray="2,2"/>
+            <!-- Contact dots -->
+            <circle cx="88" cy="30" r="3" fill="#f87171" opacity="0.85"/>   <!-- Paris area -->
+            <circle cx="162" cy="33" r="3" fill="#a78bfa" opacity="0.7"/>   <!-- Warsaw -->
+            <circle cx="128" cy="63" r="3" fill="#c084fc" opacity="0.8"/>   <!-- Ljubljana -->
+            <circle cx="167" cy="55" r="3" fill="#a78bfa" opacity="0.65"/>  <!-- Budapest -->
+            <circle cx="107" cy="52" r="3" fill="#fb923c" opacity="0.75"/>  <!-- Zürich -->
+            <circle cx="75" cy="22" r="2.5" fill="#a78bfa" opacity="0.5"/>  <!-- London -->
+            <circle cx="150" cy="24" r="2.5" fill="#a78bfa" opacity="0.45"/><!-- Kraków -->
+            <!-- 15 contacts label -->
+            <text x="8" y="105" font-size="5" fill="rgba(167,139,250,0.4)">15 contacts mapped</text>
           </svg>
         </div>
       </div>
-      <div style="position:absolute;bottom:0;left:0;right:0;height:60px;background:linear-gradient(to bottom,transparent,var(--deep));"></div>
+      <div style="position:absolute;bottom:0;left:0;right:0;height:65px;background:linear-gradient(to bottom,transparent,var(--deep));"></div>
     </div>
-    <div style="padding-top:100px;">
+    <div style="padding-top:120px;">
     <div class="venture-num">01</div>
     <div class="venture-tag">Productivity · CRM</div>
-    <div class="venture-icon">
-      <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Center node -->
-        <circle cx="13" cy="13" r="3" fill="#c8a96e"/>
-        <!-- Outer nodes -->
-        <circle cx="4" cy="5" r="2" fill="none" stroke="#c8a96e" stroke-width="1"/>
-        <circle cx="22" cy="5" r="2" fill="none" stroke="#c8a96e" stroke-width="1"/>
-        <circle cx="4" cy="21" r="2" fill="none" stroke="#c8a96e" stroke-width="1"/>
-        <circle cx="22" cy="21" r="2" fill="none" stroke="#c8a96e" stroke-width="1"/>
-        <circle cx="13" cy="3" r="1.5" fill="none" stroke="#c8a96e" stroke-width="0.8" opacity="0.5"/>
-        <!-- Edges -->
-        <line x1="13" y1="10" x2="5.4" y2="6.4" stroke="#c8a96e" stroke-width="0.7" opacity="0.5"/>
-        <line x1="13" y1="10" x2="20.6" y2="6.4" stroke="#c8a96e" stroke-width="0.7" opacity="0.5"/>
-        <line x1="13" y1="16" x2="5.4" y2="19.6" stroke="#c8a96e" stroke-width="0.7" opacity="0.5"/>
-        <line x1="13" y1="16" x2="20.6" y2="19.6" stroke="#c8a96e" stroke-width="0.7" opacity="0.5"/>
-        <line x1="13" y1="10" x2="13" y2="4.5" stroke="#c8a96e" stroke-width="0.7" opacity="0.4"/>
+    <div class="venture-icon" style="background:rgba(124,58,237,0.15); border-color:rgba(167,139,250,0.3);">
+      <!-- NEXUS NODE logo: two interlocked diamond frames -->
+      <svg width="30" height="19" viewBox="0 0 80 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="nn-pv" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#c084fc"/>
+            <stop offset="55%" stop-color="#7c3aed"/>
+            <stop offset="100%" stop-color="#4c1d95"/>
+          </linearGradient>
+          <linearGradient id="nn-pv-hi" x1="0" y1="0" x2="0.5" y2="1">
+            <stop offset="0%" stop-color="#e9d5ff" stop-opacity="0.5"/>
+            <stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <path fill-rule="evenodd"
+              d="M25,1 L49,25 L25,49 L1,25Z M25,13 L37,25 L25,37 L13,25Z"
+              fill="url(#nn-pv)"/>
+        <path d="M25,1 L49,25 L37,25 L25,13Z" fill="url(#nn-pv-hi)"/>
+        <path fill-rule="evenodd"
+              d="M55,1 L79,25 L55,49 L31,25Z M55,13 L67,25 L55,37 L43,25Z"
+              fill="url(#nn-pv)"/>
+        <path d="M55,1 L79,25 L67,25 L55,13Z" fill="url(#nn-pv-hi)"/>
       </svg>
     </div>
     <div class="venture-name">NEXUS NODE</div>
@@ -1039,20 +1073,55 @@
 
   <!-- STEUERFUCHS -->
   <a class="venture-card reveal" href="https://steuer-tools.vercel.app" target="_blank">
-    <!-- App preview mockup -->
-    <div style="position:absolute;top:0;left:0;right:0;height:140px;overflow:hidden;pointer-events:none;">
-      <div style="background:linear-gradient(135deg,#1e3a5f 0%,#1d4ed8 100%);height:100%;display:flex;align-items:center;justify-content:center;gap:10px;opacity:0.75;">
-        <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:6px;padding:10px 12px;width:150px;">
-          <div style="font-size:9px;color:rgba(255,255,255,0.6);letter-spacing:1px;margin-bottom:5px;">HOMEOFFICE RECHNER</div>
-          <div style="font-size:18px;font-weight:700;color:white;margin-bottom:2px;">756 €</div>
-          <div style="font-size:8px;color:rgba(255,255,255,0.5);">Steuerersparnis / Jahr</div>
-          <div style="margin-top:6px;height:2px;background:rgba(255,255,255,0.15);border-radius:1px;"></div>
-          <div style="margin-top:4px;height:2px;background:rgba(255,255,255,0.1);border-radius:1px;width:70%;"></div>
+    <!-- SteuerFuchs App Preview — Stundensatz calculator -->
+    <div style="position:absolute;top:0;left:0;right:0;height:160px;overflow:hidden;pointer-events:none;font-family:'Figtree',system-ui,sans-serif;">
+      <!-- Nav bar -->
+      <div style="background:white;padding:5px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e5e7eb;">
+        <div style="display:flex;align-items:center;gap:4px;">
+          <svg width="11" height="11" viewBox="0 0 28 28" fill="none"><path d="M5 14 L9 3 L14 11 L19 3 L23 14 Q24 24 14 26 Q4 24 5 14Z" fill="#1d4ed8"/><circle cx="10.5" cy="18" r="1.8" fill="white"/><circle cx="17.5" cy="18" r="1.8" fill="white"/><circle cx="10.5" cy="18.3" r="0.9" fill="#1d4ed8"/><circle cx="17.5" cy="18.3" r="0.9" fill="#1d4ed8"/></svg>
+          <div style="font-size:7.5px;font-weight:700;color:#1d4ed8;">SteuerFuchs</div>
+        </div>
+        <div style="display:flex;gap:7px;">
+          <div style="font-size:5.5px;color:#6b7280;">Arbeitnehmer</div>
+          <div style="font-size:5.5px;color:#6b7280;">Steuern</div>
+          <div style="font-size:5.5px;color:#1d4ed8;font-weight:600;border-bottom:1px solid #1d4ed8;">Freelancer</div>
+          <div style="font-size:5.5px;color:#6b7280;">Familie</div>
         </div>
       </div>
-      <div style="position:absolute;bottom:0;left:0;right:0;height:60px;background:linear-gradient(to bottom,transparent,var(--deep));"></div>
+      <!-- Calculator + sidebar -->
+      <div style="background:#f1f5f9;padding:8px 12px;display:flex;gap:8px;">
+        <!-- Calculator card -->
+        <div style="flex:1;background:white;border:1px solid #e2e8f0;border-radius:5px;padding:7px;">
+          <div style="font-size:7.5px;font-weight:700;color:#111827;margin-bottom:5px;">Freelancer-Stundensatz kalkulieren</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-bottom:5px;">
+            <div style="border:1px solid #d1d5db;border-radius:3px;padding:2.5px 5px;font-size:6.5px;color:#374151;">60.000 €/Jahr</div>
+            <div style="border:1px solid #d1d5db;border-radius:3px;padding:2.5px 5px;font-size:6.5px;color:#374151;">30 % Steuer</div>
+            <div style="border:1px solid #d1d5db;border-radius:3px;padding:2.5px 5px;font-size:6.5px;color:#374151;">220 Tage/Jahr</div>
+            <div style="border:1px solid #d1d5db;border-radius:3px;padding:2.5px 5px;font-size:6.5px;color:#374151;">75 % Auslastung</div>
+          </div>
+          <!-- Result box -->
+          <div style="background:#eff6ff;border-radius:4px;padding:5px 7px;display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <div style="font-size:5.5px;color:#6b7280;margin-bottom:1px;">Empfohlener Stundensatz</div>
+              <div style="font-size:15px;font-weight:800;color:#1d4ed8;line-height:1.1;">103,50 €/h</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:5.5px;color:#6b7280;">Tagessatz</div>
+              <div style="font-size:9px;font-weight:700;color:#374151;">828 €</div>
+            </div>
+          </div>
+        </div>
+        <!-- Facts sidebar -->
+        <div style="width:75px;background:white;border:1px solid #e2e8f0;border-radius:5px;padding:6px;flex-shrink:0;">
+          <div style="font-size:5.5px;font-weight:700;color:#111827;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:4px;">Auf einen Blick</div>
+          <div style="margin-bottom:3px;"><div style="font-size:5px;color:#9ca3af;">Fakturierb. Tage</div><div style="font-size:6.5px;font-weight:600;color:#111827;">137 Tage/Jahr</div></div>
+          <div style="margin-bottom:3px;"><div style="font-size:5px;color:#9ca3af;">Jahresumsatz</div><div style="font-size:6.5px;font-weight:600;color:#111827;">113.400 €</div></div>
+          <div><div style="font-size:5px;color:#9ca3af;">Monats-Ziel</div><div style="font-size:6.5px;font-weight:600;color:#111827;">9.450 €</div></div>
+        </div>
+      </div>
+      <div style="position:absolute;bottom:0;left:0;right:0;height:55px;background:linear-gradient(to bottom,transparent,var(--deep));"></div>
     </div>
-    <div style="padding-top:100px;">
+    <div style="padding-top:120px;">
     <div class="venture-num">03</div>
     <div class="venture-tag">Finance · SEO Tools</div>
     <div class="venture-icon">

@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peer Ventures</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Figtree:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #080808;
+    --deep: #0c0c0f;
+    --surface: #111116;
+    --surface2: #18181f;
+    --border: rgba(255,255,255,0.07);
+    --border-bright: rgba(255,255,255,0.15);
+    --gold: #c8a96e;
+    --gold-light: #e2c99a;
+    --gold-dim: rgba(200,169,110,0.15);
+    --text: #e8e8ec;
+    --muted: #6b6b7a;
+    --muted2: #9898a8;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Figtree', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR */
+  .cursor {
+    position: fixed;
+    width: 8px; height: 8px;
+    background: var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease, opacity 0.2s;
+    transform: translate(-50%, -50%);
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 32px; height: 32px;
+    border: 1px solid rgba(200,169,110,0.4);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.4s ease, width 0.3s, height 0.3s, opacity 0.3s;
+    transform: translate(-50%, -50%);
+  }
+  body:hover .cursor { opacity: 1; }
+
+  /* NOISE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 24px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(8,8,8,0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    transition: background 0.3s;
+  }
+  nav.scrolled {
+    background: rgba(8,8,8,0.97);
+  }
+
+  /* NAV LOGO */
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+  }
+  .nav-logo-mark {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+  }
+  .nav-logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    gap: 2px;
+  }
+  .nav-logo-text .peer {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 22px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .nav-logo-text .ventures {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #707080;
+    line-height: 1;
+  }
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--muted2);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 60px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 70% 50%, rgba(200,169,110,0.04) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 20% 80%, rgba(200,169,110,0.02) 0%, transparent 50%);
+  }
+
+  .hero-line {
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 55%;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent 0%, var(--border) 30%, var(--border) 70%, transparent 100%);
+  }
+
+  .hero-eyebrow {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.2s both;
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(56px, 8vw, 112px);
+    line-height: 0.95;
+    letter-spacing: -1px;
+    color: var(--text);
+    max-width: 700px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.4s both;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .hero-sub {
+    margin-top: 48px;
+    max-width: 380px;
+    font-size: 15px;
+    color: var(--muted2);
+    line-height: 1.8;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.6s both;
+  }
+
+  .hero-cta {
+    margin-top: 56px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.8s both;
+  }
+
+  .btn-primary {
+    padding: 14px 36px;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: 'Figtree', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: transparent;
+    cursor: none;
+    transition: background 0.3s, color 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gold);
+    transform: translateX(-101%);
+    transition: transform 0.3s ease;
+  }
+  .btn-primary:hover::before { transform: translateX(0); }
+  .btn-primary span { position: relative; z-index: 1; }
+  .btn-primary:hover span { color: var(--black); }
+
+  .btn-ghost {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s;
+  }
+  .btn-ghost:hover { color: var(--text); }
+  .btn-ghost::after { content: '↓'; }
+
+  /* SCROLL INDICATOR */
+  .scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 60px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.2s both;
+  }
+  .scroll-line {
+    width: 40px;
+    height: 1px;
+    background: var(--muted);
+    position: relative;
+    overflow: hidden;
+  }
+  .scroll-line::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: var(--gold);
+    animation: slideLine 2s ease infinite;
+  }
+  @keyframes slideLine {
+    0% { left: -100%; }
+    100% { left: 100%; }
+  }
+  .scroll-text {
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* STATS */
+  .stats {
+    padding: 80px 60px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    opacity: 0;
+    animation: fadeUp 1s ease 1s both;
+  }
+  .stat {
+    padding: 40px;
+    border-right: 1px solid var(--border);
+    text-align: center;
+  }
+  .stat:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 52px;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .stat-label {
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* SECTION SHARED */
+  section {
+    padding: 120px 60px;
+  }
+
+  .section-tag {
+    font-size: 9px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-tag::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  /* ABOUT */
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: center;
+  }
+  .about-text h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(36px, 4vw, 56px);
+    line-height: 1.15;
+    margin-bottom: 32px;
+  }
+  .about-text h2 em { font-style: italic; color: var(--gold-light); }
+  .about-text p {
+    color: var(--muted2);
+    font-size: 15px;
+    line-height: 1.9;
+    margin-bottom: 20px;
+  }
+  .about-visual {
+    position: relative;
+    height: 420px;
+  }
+  .about-box {
+    position: absolute;
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .about-box:nth-child(1) {
+    top: 0; left: 0;
+    width: 70%; height: 65%;
+    background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
+  }
+  .about-box:nth-child(2) {
+    bottom: 0; right: 0;
+    width: 55%; height: 50%;
+    border-color: var(--gold-dim);
+    background: rgba(200,169,110,0.03);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .about-box-inner {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 72px;
+    color: rgba(200,169,110,0.15);
+    font-weight: 300;
+    line-height: 1;
+  }
+  .about-box:nth-child(3) {
+    top: 50%; left: 55%;
+    width: 32%; height: 28%;
+    transform: translateY(-50%);
+    border-color: var(--border-bright);
+    background: var(--surface2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .pill {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: var(--gold-dim);
+    padding: 5px 12px;
+    border-radius: 40px;
+  }
+  .about-box-label {
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  /* VENTURES / PRODUCTS */
+  .ventures-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 64px;
+  }
+  .ventures-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(36px, 4vw, 52px);
+    line-height: 1.1;
+  }
+  .ventures-header h2 em { font-style: italic; color: var(--gold-light); }
+  .ventures-header p {
+    max-width: 280px;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+    text-align: right;
+  }
+
+  .ventures-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: var(--border);
+  }
+
+  .venture-card {
+    background: var(--deep);
+    padding: 56px 52px;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: background 0.4s;
+  }
+  .venture-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .venture-card:hover { background: var(--surface); }
+  .venture-card:hover::before { transform: scaleX(1); }
+
+  .venture-tag {
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 32px;
+    opacity: 0.7;
+  }
+
+  .venture-icon {
+    width: 52px; height: 52px;
+    border: 1px solid var(--border-bright);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 28px;
+    background: var(--surface2);
+    transition: border-color 0.3s;
+  }
+  .venture-card:hover .venture-icon { border-color: var(--gold); }
+
+  .venture-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 34px;
+    font-weight: 300;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+  }
+
+  .venture-desc {
+    font-size: 14px;
+    color: var(--muted2);
+    line-height: 1.75;
+    margin-bottom: 36px;
+    max-width: 360px;
+  }
+
+  .venture-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 40px;
+  }
+  .vtag {
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 5px 12px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+  }
+
+  .venture-link {
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: gap 0.3s;
+  }
+  .venture-card:hover .venture-link { gap: 14px; }
+
+  .venture-num {
+    position: absolute;
+    top: 52px; right: 52px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 80px;
+    color: rgba(255,255,255,0.03);
+    font-weight: 300;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  /* FUTURE CARD */
+  .venture-card.future {
+    background: var(--black);
+    border: 1px dashed rgba(255,255,255,0.05);
+    cursor: default;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 360px;
+  }
+  .venture-card.future::before { display: none; }
+  .future-plus {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 64px;
+    color: var(--border-bright);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+  .future-text {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* PILLARS */
+  .pillars {
+    background: var(--surface);
+  }
+  .pillars-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+    margin-top: 64px;
+  }
+  .pillar {
+    padding: 40px 0;
+    border-top: 1px solid var(--border);
+  }
+  .pillar-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    color: var(--gold);
+    margin-bottom: 20px;
+    opacity: 0.6;
+  }
+  .pillar h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 26px;
+    margin-bottom: 14px;
+  }
+  .pillar p {
+    font-size: 14px;
+    color: var(--muted2);
+    line-height: 1.8;
+  }
+
+  /* FOUNDER */
+  .founder {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 80px;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .founder-visual {
+    position: relative;
+  }
+  .founder-frame {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .founder-frame::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 30%, rgba(200,169,110,0.06) 0%, transparent 60%);
+  }
+  .founder-initials {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 96px;
+    font-weight: 300;
+    color: rgba(200,169,110,0.2);
+    letter-spacing: -4px;
+  }
+  .founder-badge {
+    position: absolute;
+    bottom: -1px; right: -1px;
+    background: var(--gold);
+    color: var(--black);
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 10px 18px;
+    font-weight: 600;
+  }
+  .founder-content h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(32px, 3.5vw, 48px);
+    line-height: 1.15;
+    margin-bottom: 8px;
+  }
+  .founder-content h2 em { font-style: italic; color: var(--gold-light); }
+  .founder-title {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 32px;
+  }
+  .founder-content p {
+    font-size: 15px;
+    color: var(--muted2);
+    line-height: 1.9;
+    margin-bottom: 20px;
+  }
+  .founder-links {
+    display: flex;
+    gap: 16px;
+    margin-top: 36px;
+  }
+  .founder-link {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 4px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .founder-link:hover { color: var(--gold); border-color: var(--gold); }
+
+  /* CONTACT */
+  .contact-section {
+    background: var(--deep);
+    text-align: center;
+    padding: 120px 60px;
+    border-top: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .contact-section::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(200,169,110,0.04) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .contact-section h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(40px, 5vw, 72px);
+    line-height: 1.05;
+    margin-bottom: 24px;
+    position: relative;
+  }
+  .contact-section h2 em { font-style: italic; color: var(--gold-light); }
+  .contact-section p {
+    font-size: 15px;
+    color: var(--muted2);
+    margin-bottom: 48px;
+    position: relative;
+  }
+  .contact-email {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 4px;
+    transition: border-color 0.3s;
+    position: relative;
+  }
+  .contact-email:hover { border-color: var(--gold); }
+
+  /* FOOTER */
+  footer {
+    padding: 40px 60px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    letter-spacing: 5px;
+    color: var(--gold);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .footer-logo span { color: #6b6b7a; font-size: 11px; letter-spacing: 4px; }
+  .footer-copy {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+  .footer-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
+  .footer-links a {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--gold); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 24px 24px; }
+    .nav-links { display: none; }
+    .hero { padding: 100px 24px 60px; }
+    .stats { grid-template-columns: 1fr 1fr; padding: 40px 24px; }
+    .stat { padding: 24px; }
+    section { padding: 80px 24px; }
+    .about { grid-template-columns: 1fr; gap: 48px; }
+    .about-visual { height: 260px; }
+    .ventures-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .ventures-header p { text-align: left; }
+    .ventures-grid { grid-template-columns: 1fr; }
+    .venture-card { padding: 40px 32px; }
+    .pillars-grid { grid-template-columns: 1fr; gap: 0; }
+    .founder { grid-template-columns: 1fr; gap: 48px; }
+    footer { flex-direction: column; gap: 20px; text-align: center; }
+    .footer-links { display: none; }
+    body { cursor: auto; }
+    .cursor, .cursor-ring { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <!-- New P-in-circle logomark -->
+    <svg class="nav-logo-mark" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="16" cy="16" r="14" stroke="#c8a96e" stroke-width="1"/>
+      <path d="M10 23 L10 9 L16.5 9 Q23 9 23 14 Q23 19 16.5 19 L10 19"
+            stroke="#c8a96e" stroke-width="2" fill="none"
+            stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div class="nav-logo-text">
+      <span class="peer">PEER</span>
+      <span class="ventures">VENTURES</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#ventures">Portfolio</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#founder">Founder</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-line"></div>
+
+  <div class="hero-eyebrow">Vienna, Austria · Est. 2024</div>
+  <h1>Building the<br>future of <em>software.</em></h1>
+  <p class="hero-sub">Peer Ventures is a holding company dedicated to building innovative, secure products that grow with the people who use them — and endure long after the trend has passed.</p>
+
+  <div class="hero-cta">
+    <a href="#ventures" class="btn-primary"><span>View Portfolio</span></a>
+    <a href="#about" class="btn-ghost">Learn more</a>
+  </div>
+
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    <span class="scroll-text">Scroll</span>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats reveal">
+  <div class="stat">
+    <div class="stat-num">3+</div>
+    <div class="stat-label">Products Launched</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">4</div>
+    <div class="stat-label">Languages Supported</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">∞</div>
+    <div class="stat-label">Ambition</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">0</div>
+    <div class="stat-label">Data Sold</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about">
+    <div class="about-text reveal">
+      <div class="section-tag">About Peer Ventures</div>
+      <h2>Innovation with<br><em>purpose</em> & precision.</h2>
+      <p>We build software that respects users — no data harvesting, no dark patterns, no compromises. Every product under the Peer Ventures umbrella is built with a long-term vision and uncompromising attention to quality.</p>
+      <p>From productivity tools to fitness applications, our portfolio spans multiple categories with one constant: software that earns trust.</p>
+    </div>
+    <div class="about-visual reveal">
+      <div class="about-box"></div>
+      <div class="about-box">
+        <div class="about-box-inner">PV</div>
+      </div>
+      <div class="about-box">
+        <div class="pill">Privacy First</div>
+        <div class="about-box-label" style="margin-top:8px; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--muted);">Core Principle</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILLARS -->
+<section class="pillars" id="pillars">
+  <div class="pillars-inner">
+    <div class="section-tag reveal">Our Principles</div>
+    <h2 class="reveal" style="font-family:'Cormorant Garamond',serif; font-weight:300; font-size:clamp(36px,4vw,52px); line-height:1.1;">What we stand for.</h2>
+    <div class="pillars-grid">
+      <div class="pillar reveal">
+        <div class="pillar-num">01</div>
+        <h3>Innovation</h3>
+        <p>We don't follow trends — we identify genuine problems and build elegant solutions. Every product starts with a question: what does the world actually need?</p>
+      </div>
+      <div class="pillar reveal">
+        <div class="pillar-num">02</div>
+        <h3>Security & Privacy</h3>
+        <p>Your data stays yours. Every Peer Ventures product is built privacy-first, with local storage as the default and no unnecessary data collection — ever.</p>
+      </div>
+      <div class="pillar reveal">
+        <div class="pillar-num">03</div>
+        <h3>Growth</h3>
+        <p>We build for the long term. From indie apps to enterprise ventures, Peer Ventures is structured to grow — acquiring, launching, and scaling businesses that matter.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VENTURES -->
+<section id="ventures" style="padding-top:120px; padding-bottom:0;">
+  <div class="ventures-header reveal">
+    <h2>Our <em>Portfolio</em></h2>
+    <p>Software ventures built with precision and purpose — each solving a distinct problem.</p>
+  </div>
+</section>
+
+<div class="ventures-grid">
+  <!-- NEXUS NODE -->
+  <a class="venture-card reveal" href="https://getnexusnode.github.io" target="_blank">
+    <div class="venture-num">01</div>
+    <div class="venture-tag">Productivity · CRM</div>
+    <div class="venture-icon">
+      <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Center node -->
+        <circle cx="13" cy="13" r="3" fill="#c8a96e"/>
+        <!-- Outer nodes -->
+        <circle cx="4" cy="5" r="2" fill="none" stroke="#c8a96e" stroke-width="1"/>
+        <circle cx="22" cy="5" r="2" fill="none" stroke="#c8a96e" stroke-width="1"/>
+        <circle cx="4" cy="21" r="2" fill="none" stroke="#c8a96e" stroke-width="1"/>
+        <circle cx="22" cy="21" r="2" fill="none" stroke="#c8a96e" stroke-width="1"/>
+        <circle cx="13" cy="3" r="1.5" fill="none" stroke="#c8a96e" stroke-width="0.8" opacity="0.5"/>
+        <!-- Edges -->
+        <line x1="13" y1="10" x2="5.4" y2="6.4" stroke="#c8a96e" stroke-width="0.7" opacity="0.5"/>
+        <line x1="13" y1="10" x2="20.6" y2="6.4" stroke="#c8a96e" stroke-width="0.7" opacity="0.5"/>
+        <line x1="13" y1="16" x2="5.4" y2="19.6" stroke="#c8a96e" stroke-width="0.7" opacity="0.5"/>
+        <line x1="13" y1="16" x2="20.6" y2="19.6" stroke="#c8a96e" stroke-width="0.7" opacity="0.5"/>
+        <line x1="13" y1="10" x2="13" y2="4.5" stroke="#c8a96e" stroke-width="0.7" opacity="0.4"/>
+      </svg>
+    </div>
+    <div class="venture-name">NEXUS NODE</div>
+    <p class="venture-desc">A privacy-first contact relationship manager with force-directed network visualization. See your connections differently — all data stored locally, always.</p>
+    <div class="venture-tags">
+      <span class="vtag">Windows</span>
+      <span class="vtag">Privacy-First</span>
+      <span class="vtag">Network Graph</span>
+      <span class="vtag">One-Time Purchase</span>
+    </div>
+    <div class="venture-link">Explore Product <span>→</span></div>
+  </a>
+
+  <!-- GYMLOG -->
+  <div class="venture-card reveal" style="cursor:default;">
+    <div class="venture-num">02</div>
+    <div class="venture-tag">Health · Fitness</div>
+    <div class="venture-icon">
+      <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Barbell bar -->
+        <line x1="5" y1="13" x2="21" y2="13" stroke="#c8a96e" stroke-width="1.5" stroke-linecap="round"/>
+        <!-- Left weight plates -->
+        <rect x="2" y="9" width="3" height="8" rx="1" fill="none" stroke="#c8a96e" stroke-width="1"/>
+        <rect x="5.5" y="10.5" width="2" height="5" rx="0.5" fill="#c8a96e" opacity="0.4"/>
+        <!-- Right weight plates -->
+        <rect x="21" y="9" width="3" height="8" rx="1" fill="none" stroke="#c8a96e" stroke-width="1"/>
+        <rect x="18.5" y="10.5" width="2" height="5" rx="0.5" fill="#c8a96e" opacity="0.4"/>
+        <!-- Center grip -->
+        <rect x="11" y="11.5" width="4" height="3" rx="0.5" fill="#c8a96e" opacity="0.3"/>
+      </svg>
+    </div>
+    <div class="venture-name">GymLog</div>
+    <p class="venture-desc">Intelligent workout tracking built around the Push/Pull/Legs methodology. Log sessions, track personal records, visualize progress — no account required.</p>
+    <div class="venture-tags">
+      <span class="vtag">Android</span>
+      <span class="vtag">Offline-First</span>
+      <span class="vtag">PPL Split</span>
+      <span class="vtag">Freemium</span>
+    </div>
+    <div class="venture-link" style="color:var(--muted); pointer-events:none;">Coming Soon</div>
+  </div>
+
+  <!-- STEUERFUCHS -->
+  <a class="venture-card reveal" href="https://steuer-tools.vercel.app" target="_blank">
+    <div class="venture-num">03</div>
+    <div class="venture-tag">Finance · SEO Tools</div>
+    <div class="venture-icon">
+      <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Percentage symbol -->
+        <circle cx="8.5" cy="8.5" r="3.5" stroke="#c8a96e" stroke-width="1.5" fill="none"/>
+        <circle cx="17.5" cy="17.5" r="3.5" stroke="#c8a96e" stroke-width="1.5" fill="none"/>
+        <line x1="5" y1="21" x2="21" y2="5" stroke="#c8a96e" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="venture-name">SteuerFuchs</div>
+    <p class="venture-desc">8 kostenlose deutsche Steuerrechner — Homeoffice, Elterngeld, Stundensatz, Nebenjob und mehr. Statisch, blitzschnell, optimiert für organischen Traffic.</p>
+    <div class="venture-tags">
+      <span class="vtag">Deutsch</span>
+      <span class="vtag">Free Tools</span>
+      <span class="vtag">Steuerrechner</span>
+      <span class="vtag">AdSense</span>
+    </div>
+    <div class="venture-link">Explore Product <span>→</span></div>
+  </a>
+
+  <!-- FUTURE SLOT -->
+  <div class="venture-card future reveal">
+    <div class="future-plus">+</div>
+    <div class="future-text">Next Venture · TBA</div>
+  </div>
+</div>
+
+<!-- FOUNDER -->
+<section id="founder" style="padding-top:140px; padding-bottom:140px;">
+  <div class="founder">
+    <div class="founder-visual reveal">
+      <div class="founder-frame">
+        <div class="founder-initials">LP</div>
+        <div class="founder-badge">Founder</div>
+      </div>
+    </div>
+    <div class="founder-content reveal">
+      <div class="section-tag">The Founder</div>
+      <h2>Lorenz <em>Peer</em></h2>
+      <div class="founder-title">Founder & Developer · Vienna, Austria</div>
+      <p>A software developer and entrepreneur based in Vienna, building privacy-first products for a global audience. Peer Ventures was founded on the belief that software should serve people — not harvest them.</p>
+      <p>Every product is designed, built, and shipped solo — with the precision of a studio and the speed of a startup.</p>
+      <div class="founder-links">
+        <a href="https://linkedin.com" class="founder-link" target="_blank">LinkedIn</a>
+        <a href="https://gumroad.com" class="founder-link" target="_blank">Gumroad</a>
+        <a href="#contact" class="founder-link">Contact</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact-section" id="contact">
+  <div class="section-tag reveal" style="justify-content:center;">Get in Touch</div>
+  <h2 class="reveal">Let's build<br><em>something great.</em></h2>
+  <p class="reveal">Partnerships, press inquiries, or just a conversation.</p>
+  <a href="mailto:hello@peerventures.com" class="contact-email reveal">hello@peerventures.com</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <svg width="16" height="16" viewBox="0 0 32 32" fill="none">
+      <circle cx="16" cy="16" r="14" stroke="#c8a96e" stroke-width="1"/>
+      <path d="M10 23 L10 9 L16.5 9 Q23 9 23 14 Q23 19 16.5 19 L10 19"
+            stroke="#c8a96e" stroke-width="2" fill="none"
+            stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    PEER <span>VENTURES</span>
+  </div>
+  <div class="footer-copy">© 2026 Peer Ventures. All rights reserved.</div>
+  <ul class="footer-links">
+    <li><a href="#ventures">Portfolio</a></li>
+    <li><a href="#founder">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#">Privacy</a></li>
+  </ul>
+</footer>
+
+<script>
+  // NAV SCROLL
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // CURSOR
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      ring.style.width = '52px';
+      ring.style.height = '52px';
+      ring.style.borderColor = 'rgba(200,169,110,0.7)';
+      cursor.style.transform = 'translate(-50%,-50%) scale(0)';
+    });
+    el.addEventListener('mouseleave', () => {
+      ring.style.width = '32px';
+      ring.style.height = '32px';
+      ring.style.borderColor = 'rgba(200,169,110,0.4)';
+      cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+    });
+  });
+
+  // SCROLL REVEAL
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
